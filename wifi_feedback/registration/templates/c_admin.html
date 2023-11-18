@@ -1,0 +1,123 @@
+{% load static %}
+{% load complaint_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Complaints</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .background-radial-gradient {
+                background-size: cover;
+            }
+            #radius-shape-1,
+            #radius-shape-2 {
+                display: none;
+            }
+        }
+        /* Custom styles for the design block */
+        .background-radial-gradient {
+            background-color: hsl(218, 41%, 15%);
+            background-image: radial-gradient(650px circle at 0% 0%,
+                hsl(218, 41%, 35%) 15%,
+                hsl(218, 41%, 30%) 35%,
+                hsl(218, 41%, 20%) 75%,
+                hsl(218, 41%, 19%) 80%,
+                transparent 100%),
+              radial-gradient(1250px circle at 100% 100%,
+                hsl(218, 41%, 45%) 15%,
+                hsl(218, 41%, 30%) 35%,
+                hsl(218, 41%, 20%) 75%,
+                hsl(218, 41%, 19%) 80%,
+                transparent 100%);
+        }
+
+        #radius-shape-1 {
+            height: 220px;
+            width: 220px;
+            top: -60px;
+            left: -130px;
+            background: radial-gradient(#44006b, #ad1fff);
+            overflow: hidden;
+        }
+
+        #radius-shape-2 {
+            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+            bottom: -60px;
+            right: -110px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(#44006b, #ad1fff);
+            overflow: hidden;
+        }
+
+        .bg-glass {
+            background-color: hsla(0, 0%, 100%, 0.9) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+        }
+    </style>
+</head>
+<body style="background-color: rgba(62, 62, 62, 0.447);">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <b>
+        <div class="container-fluid d-flex">
+          <a class="navbar-brand" href="#">
+            <img src="{% static 'download.png' %}" alt="" width="35" height="35" class="d-inline-block align-text-top">
+            Wifi-FeedBack System
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav" style="position: absolute; right: 10px;">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'logout' %}">LOG-OUT</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+        </b>
+    </nav>
+    <section>
+        <div class="container mt-5">
+            <form method="post" action="{% url 'update_all_resolutions' %}">
+                {% csrf_token %}
+                <table id="complaints" class="table" style="text-align: center;">
+                    <thead>
+                        <tr>
+                            <th>Complaint ID</th>
+                            <th>Description</th>
+                            <th>Resolution Status</th>
+                            <th>Image of issue</th>
+                        </tr>
+                    </thead>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.complaint_id }}</td>
+                        <td>{{ complaint.complaint_description }}</td>
+                        <td>
+                            <select name="resolution_status_{{ complaint.complaint_id }}" id="resolution_status">
+                                <option value="pending" {% if complaint.resolution_status == "pending" %} selected {% endif %}>Pending</option>
+                                <option value="resolved" {% if complaint.resolution_status == "resolved" %} selected {% endif %}>Resolved</option>
+                                <option value="not_resolved" {% if complaint.resolution_status == "not_resolved" %} selected {% endif %}>Not Resolved</option>
+                            </select>
+                        </td>
+                        <td>
+                            {% for image_url in complaint_images|get_complaint:complaint.complaint_id %}
+                                <img src="{{ image_url }}" alt="Complaint Image" width="150" height="150">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <button class="btn btn-primary btn-block mb-4" type="submit">Update All</button>
+            </form>
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
