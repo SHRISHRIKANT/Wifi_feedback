@@ -173,5 +173,7 @@ Before running the project, make sure you have the following installed:
     ```bash
     deactivate
     ```
+##You can download the report at
+[Download PDF](https://github.com/SHRISHRIKANT/Wifi_feedback/blob/main/205223006_project.pdf)
 
 Now, you have successfully set up and run the Hostel WiFi Feedback System. Feel free to explore the application and make any necessary configurations for your specific use case.
