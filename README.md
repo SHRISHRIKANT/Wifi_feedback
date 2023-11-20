@@ -88,26 +88,29 @@ In response to persistent WiFi issues within our hostels, the Hostel WiFi Feedba
 
 ## Project Structure
 
-wifi_feedback/
-|-- registration/
-|   |-- manage.py
-|   |-- registration/
-|   |   |-- __init__.py
-|   |   |-- settings.py
-|   |   |-- urls.py
-|   |   |-- asgi.py
-|   |   |-- wsgi.py
-|-- app/
-|   |-- __init__.py
-|   |-- admin.py
-|   |-- apps.py
-|   |-- migrations/
-|   |   |-- __init__.py
-|   |-- models.py
-|   |-- tests.py
-|   |-- views.py
-|-- requirements.txt
-|-- README.md
+
+This structure represents the organization of the Hostel WiFi Feedback System project.
+
+**Key Directories and Files:**
+- `registration/`: Django project folder.
+  - `manage.py`: Django management script.
+  - `registration/`: Django app folder.
+    - `__init__.py`: Python package initialization file.
+    - `settings.py`: Django project settings.
+    - `urls.py`: URL configurations.
+    - `asgi.py` and `wsgi.py`: ASGI and WSGI entry points.
+
+- `app/`: Django app folder.
+  - `__init__.py`: Python package initialization file.
+  - `admin.py`: Django admin configurations.
+  - `apps.py`: Django app configurations.
+  - `migrations/`: Folder for database migrations.
+  - `models.py`: Django models for the app.
+  - `tests.py`: Unit tests for the app.
+  - `views.py`: Django views for the app.
+
+- `requirements.txt`: List of project dependencies.
+- `README.md`: Project documentation.
 
 | 8    | :door: Logout             | Log out from the system.                                |
 | 9    | :checkered_flag: End Page           | Reach the end of the workflow.                          |
